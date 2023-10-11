@@ -1,0 +1,13 @@
+<h1>Flickr Display</h1>
+
+<%= form_with url: "/feed", method: :get do |f| %>
+  <%= f.label :id, "Your Flickr user ID" %><br>
+  <%= f.text_field :id %><br>
+  <%= f.submit "Submit" %>
+<% end %>
+
+<% if @photos.present? %>
+  <% @photos.each do |photo| %>
+    <%= image_tag (photo) %>
+  <% end %>
+<% end %>
