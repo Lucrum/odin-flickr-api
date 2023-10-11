@@ -7,11 +7,13 @@ class FeedController < ApplicationController
 
   def get_flickr_photos
     flickr = Flickr.new(ENV["FLICKR_KEY"], ENV["FLICKR_SECRET"])
-    response = flickr.people.getPublicPhotos(user_id: flickr_params[:id], per_page: 10)
+    response = flickr.people.getPublicPhotos(user_id: flickr_params[:id])
     @photos = []
     response.each do |info|
-      data = flickr.photos.getInfo(photo_id: info["id"])
-      @photos.append(Flickr.url_m(data))
+      server = info["server"]
+      id = info["id"]
+      secret = info["secret"]
+      @photos.append("https://live.staticflickr.com/#{server}/#{id}_#{secret}_m.jpg")
     end
   end
 
